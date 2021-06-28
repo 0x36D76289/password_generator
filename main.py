@@ -1,14 +1,27 @@
 """
 @author         catarme
-@version        0.1
+@version        0.2
 @since          28/06/2021
-@param          Add the project on GitHub
+@param          Added the possibility to choose a password difficulty level.
 """
+from random import randint
+from pyperclip import copy
 
-def mdp(size: int) -> str:
+def mdp(size: int, level: int) -> str:
     mdp = str()
+    min = 33
+    max = 126
+
+    if level == 1:
+        min = 58
+        max = 65
+    
+    if level == 2:
+        min = 48
+        max = 75
+
     for i in range(size):
-        mdp += str(chr(randint(33, 126)))
+        mdp += str(chr(randint(min, max)))
     return mdp
 
 def defsize() -> int:
@@ -21,9 +34,15 @@ def defsize() -> int:
         return defsize()
     return size
 
-if __name__ == "__main__":
-    from random import randint
-    from pyperclip import copy
+def deflevel() -> int:
+    level = input("What level of difficulty : ")
+    try:
+        level = int(level)
+    except ValueError:
+        level = deflevel()
+    if level <= 0:
+        return deflevel()
+    return level
 
-    copy(mdp(defsize()))
-    
+if __name__ == "__main__":
+    copy(mdp(defsize(), deflevel()))
