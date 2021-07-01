@@ -1,8 +1,8 @@
 """
 @author         catarme
-@version        0.2
-@since          28/06/2021
-@param          Added the possibility to choose a password difficulty level.
+@version        0.3
+@since          01/07/2021
+@param          Code optimization.
 """
 from random import randint
 from pyperclip import copy
