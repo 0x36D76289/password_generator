@@ -9,40 +9,35 @@ from pyperclip import copy
 
 def mdp(size: int, level: int) -> str:
     mdp = str()
-    min = 33
-    max = 126
+    min, max = 33, 126
 
     if level == 1:
-        min = 58
-        max = 65
+        min, max = 58, 65
     
     if level == 2:
-        min = 48
-        max = 75
+        min, max = 48, 75
 
     for i in range(size):
         mdp += str(chr(randint(min, max)))
     return mdp
 
 def defsize() -> int:
-    size = input("Number of characters in the password : ")
     try:
-        size = int(size)
+        number = int(input("Number of characters in the password : "))
+        if number <= 0:
+            raise ValueError
     except ValueError:
-        size = defsize()
-    if size < 0:
         return defsize()
-    return size
+    return number
 
 def deflevel() -> int:
-    level = input("What level of difficulty : ")
     try:
-        level = int(level)
+        number = int(input("What level of difficulty : "))
+        if number < 0:
+            raise ValueError
     except ValueError:
-        level = deflevel()
-    if level <= 0:
-        return deflevel()
-    return level
+        return defsize()
+    return number
 
 if __name__ == "__main__":
     copy(mdp(defsize(), deflevel()))
